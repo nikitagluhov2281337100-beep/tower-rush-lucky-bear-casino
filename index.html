@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyBear Casino — Tower Rush: бонусы, играть онлайн</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://playtowerrush.ru/images/logo.png" type="image/png">
+  <link rel="canonical" href="https://tower-rush.vercel.app/">
+  <meta name="description" content="Tower Rush в LuckyBear Casino: бонус до 360% и 250 фриспинов на первые депозиты. Играйте в башню, берите множители и выигрывайте.">
+  <meta name="keywords" content="tower rush, лаки бир казино, LuckyBear Casino, башня игра, бонус 360%, фриспины">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tower Rush — LuckyBear Casino">
+  <meta property="og:description" content="Бонус до 360% + 250 фриспинов на первые 4 депозита">
+  <meta property="og:image" content="https://playtowerrush.ru/images/logo.png">
+  <meta property="og:url" content="https://tower-rush.vercel.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tower Rush — LuckyBear Casino">
+  <meta name="twitter:description" content="Бонус до 360% + 250 фриспинов на первые депозиты">
+  <meta name="twitter:image" content="https://playtowerrush.ru/images/logo.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://tower-rush.vercel.app/","name":"LuckyBear Casino — Tower Rush","publisher":{"@type":"Organization","name":"LuckyBear Casino","logo":{"@type":"ImageObject","url":"https://tower-rush.vercel.app/images/logo.png"}},"potentialAction":{"@type":"SearchAction","target":"https://tower-rush.vercel.app/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Что такое Tower Rush в LuckyBear Casino?","acceptedAnswer":{"@type":"Answer","text":"Tower Rush — популярная игра с мультипликаторами в LuckyBear Casino, где игроки поднимаются по уровням башни и берут ходы с растущими множителями."}},{"@type":"Question","name":"Как получить бонус до 360% и фриспины?","acceptedAnswer":{"@type":"Answer","text":"Бонус до 360% и до 250 фриспинов доступен на первые четыре депозита. Нажмите \"Пополнить\" и следуйте условиям акции."}}]}</script>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    :root{--bg:#0b0b12;--bg-2:#0f0f1f;--gold:#ffd700;--gold-2:#ffae00;--text:#ffffff;--muted:#b7b7c9;--accent:#00d38f;--dark:#0d0d10}
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(1200px 700px at 10% 10%, rgba(255,215,0,0.08), transparent), radial-gradient(900px 600px at 90% 20%, rgba(0,211,143,0.08), transparent), var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    /* Анимированный фон с точками */
+    canvas#bgCanvas {
+      position: fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      z-index:-1;
+      filter: drop-shadow(0 0 20px rgba(255,215,0,0.1));
+    }
+
+    .nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background: rgba(13,13,16,0.6);backdrop-filter: blur(10px);border-bottom: 1px solid rgba(255,255,255,0.06);z-index: 1000}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+    .brand-logo{width:42px;height:42px;border-radius:10px;box-shadow:0 0 25px rgba(255,215,0,0.45)}
+    .brand-title{font-weight:800;letter-spacing:.5px}
+    .brand-sub{display:block;font-size:.8rem;color:var(--muted)}
+    .nav-links{display:flex;gap:16px;align-items:center}
+    .nav-link{color:var(--muted);text-decoration:none;font-weight:600;transition:.2s}
+    .nav-link:hover{color:var(--text)}
+    .cta-small{padding:10px 16px;border-radius:22px;background:linear-gradient(45deg,var(--gold),var(--gold-2));color:#111;font-weight:800;box-shadow:0 8px 24px rgba(255,215,0,0.4)}
+
+    .container {max-width:1100px;margin:0 auto;padding:110px 20px 40px;text-align:center;}
+    .hero-logo{width:140px;height:auto;display:block;margin:0 auto 14px;filter:drop-shadow(0 0 18px rgba(255,215,0,0.35))}
+    .logo {
+      font-size:3.2rem;
+      font-weight:800;
+      background:linear-gradient(90deg,var(--gold),var(--gold-2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 35px rgba(255,215,0,0.6);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {from{text-shadow:0 0 15px var(--gold);} to{text-shadow:0 0 40px var(--gold-2);}}
+    .subtitle {font-size:1.2rem;color:var(--muted);margin:1rem 0 2.2rem;}
+    .cta-button {
+      display:inline-block;
+      padding:18px 44px;
+      margin:15px;
+      font-size:1.2rem;
+      font-weight:700;
+      border-radius:50px;
+      background:linear-gradient(45deg,var(--gold),var(--gold-2));
+      color:#111;
+      text-decoration:none;
+      box-shadow:0 10px 30px rgba(255,215,0,0.45);
+      transition:0.3s;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .cta-button:hover {transform:scale(1.07);box-shadow:0 20px 50px rgba(255,215,0,0.6);} 
+    .cta-button::before {
+      content:'';
+      position:absolute;
+      top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+      transition:0.5s;
+    }
+    .cta-button:hover::before {left:100%;}
+
+    .tg-btn{background:linear-gradient(45deg,#0088cc,#005f99);color:#fff;box-shadow:0 10px 30px rgba(0,136,204,0.45)}
+
+    .strategy-box {
+      margin:3rem auto;
+      padding:2rem;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      backdrop-filter:blur(8px);
+      box-shadow:0 0 40px rgba(255,255,255,0.08);
+    }
+    .strategy-title {font-size:2rem;font-weight:800;margin-bottom:1rem;}
+    .strategy-steps {display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;}
+    .step {
+      flex:1 1 250px;
+      background:rgba(255,255,255,0.1);
+      border-radius:15px;
+      padding:1.5rem;
+      transition:0.3s;
+    }
+    .step:hover {transform:translateY(-8px);background:rgba(255,255,255,0.12)} 
+    .step-number {font-size:2rem;font-weight:800;color:var(--gold);}
+    .step-text {margin-top:.5rem;font-weight:600;}
+
+    .promo-section {
+      margin:3rem auto;
+      padding:2rem;
+      border-radius:20px;
+      background:rgba(255,215,0,0.08);
+      box-shadow:0 0 30px rgba(255,215,0,0.25);
+      position:relative;
+    }
+    .promo-section h2 {font-size:1.8rem;margin-bottom:1rem;}
+    .promo-section::after{content:"";position:absolute;top:-6px;right:-6px;width:56px;height:56px;background:linear-gradient(45deg,var(--gold),var(--gold-2));border-radius:12px;box-shadow:0 10px 30px rgba(255,215,0,0.45)}
+    .bonus-card{display:flex;flex-direction:column;gap:20px}
+    .chest-list{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .chest{flex:1 1 200px;min-width:200px;background:rgba(255,255,255,0.06);border-radius:16px;padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);transition:.25s}
+    .chest:hover{transform:translateY(-4px)}
+    .chest-label{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.08);font-weight:700;font-size:.9rem;margin-bottom:10px}
+    .chest-svg{width:90px;height:90px;margin:10px auto 6px;display:block}
+    .chest-img{width:90px;height:auto;margin:10px auto 6px;display:block}
+    .bonus-line{height:4px;background:rgba(255,255,255,0.12);border-radius:999px;margin:10px 0;position:relative}
+    .bonus-dot{position:absolute;left:12px;top:-4px;width:12px;height:12px;background:linear-gradient(45deg,var(--gold),var(--gold-2));border-radius:50%;box-shadow:0 0 12px rgba(255,215,0,0.7)}
+    .bonus-text{font-weight:700}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn-primary{background:linear-gradient(45deg,#1f4aa8,#0f2c76);color:#fff}
+    .btn-secondary{background:linear-gradient(45deg,#e9e9ec,#cfcfd6);color:#111}
+
+    .floating {
+      position:fixed;
+      font-size:2rem;
+      opacity:0.08;
+      animation:float 6s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+    .floating:nth-child(1){top:20%;left:10%;animation-delay:0s;}
+    .floating:nth-child(2){top:60%;right:15%;animation-delay:2s;}
+    .floating:nth-child(3){bottom:20%;left:20%;animation-delay:4s;}
+
+    .popup {
+      position:fixed;
+      top:50%;left:50%;transform:translate(-50%,-50%) scale(0.7);
+      background:#111;
+      color:#fff;
+      padding:2rem;
+      border-radius:15px;
+      box-shadow:0 0 40px rgba(0,0,0,0.7);
+      display:none;
+      z-index:999;
+      text-align:center;
+      opacity:0;
+      transition:all 0.4s ease;
+    }
+    .popup.active {
+      display:block;
+      transform:translate(-50%,-50%) scale(1);
+      opacity:1;
+    }
+    .popup a {
+      display:inline-block;
+      margin-top:1rem;
+      padding:15px 30px;
+      border-radius:30px;
+      background:linear-gradient(45deg,var(--gold),var(--gold-2));
+      color:#111;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .footer{margin:3rem auto 2rem;opacity:.7;font-size:.9rem}
+
+    @media(max-width:768px){
+      .logo{font-size:2.4rem;}
+      .nav{padding:12px 16px}
+      .brand-title{font-size:1rem}
+      .cta-button{display:block;width:100%;margin:15px 0;}
+      .strategy-steps{flex-direction:column;}
+      .container{padding:90px 16px 32px}
+      .subtitle{font-size:1rem;margin:0.8rem 0 1.4rem}
+      .cta-button{padding:14px 24px;font-size:1rem}
+      .promo-section{padding:1.2rem}
+      .chest-list{flex-direction:column;gap:12px}
+      .chest{min-width:auto}
+      .chest-img{width:72px}
+      .nav-links{gap:10px}
+      .nav-link{font-size:.9rem}
+      .accordion summary{padding:16px}
+      .accordion .content{padding:0 16px 16px}
+      .step{padding:1rem}
+      .footer{margin:2rem auto 1.2rem}
+      .btns{gap:10px}
+      .phone-wrapper{width:320px}
+      .phone-glow{width:280px;height:280px;filter:blur(26px)}
+    }
+    @media(max-width:480px){
+      .logo{font-size:1.9rem}
+      .nav{padding:10px 12px}
+      .brand-sub{display:none}
+      .cta-button{padding:12px 20px;font-size:.95rem;margin:10px 0}
+      .subtitle{font-size:.95rem}
+      .phone-wrapper{width:280px}
+      .phone-glow{width:240px;height:240px}
+    }
+    .accordion{max-width:1100px;margin:30px auto;color:#ddd}
+    .accordion details{background:rgba(255,255,255,0.06);border-radius:12px;margin-bottom:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08)}
+    .accordion summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:800;color:#fff}
+    .accordion summary::-webkit-details-marker{display:none}
+    .accordion .content{padding:0 20px 18px;line-height:1.7}
+    .accordion details[open]{box-shadow:0 12px 34px rgba(255,215,0,0.16)}
+    .phone-section{max-width:1100px;margin:30px auto}
+    .phone-wrapper{position:relative;width:560px;margin:0 auto;animation:phone-bob 4.5s ease-in-out infinite}
+    .phone-img{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 40px rgba(0,0,0,0.5))}
+    .phone-glow{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:380px;height:380px;background:radial-gradient(closest-side, rgba(255,215,0,0.5), rgba(255,174,0,0.28), transparent 70%);filter:blur(30px);z-index:-1;border-radius:50%}
+    .phone-cta{max-width:1100px;margin:16px auto;text-align:center}
+    .jackpot-btn{background:linear-gradient(45deg,#ff4d4f,#ffae00);color:#111;font-weight:800;letter-spacing:.5px;box-shadow:0 12px 40px rgba(255,100,0,0.55);padding:20px 36px}
+    .jackpot-btn:hover{transform:scale(1.08);box-shadow:0 18px 55px rgba(255,100,0,0.7)}
+    @keyframes phone-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header class="nav">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="https://playtowerrush.ru/images/logo.png" alt="TowerRush">
+      <div>
+        <span class="brand-title">LuckyBear Casino</span>
+        <span class="brand-sub">TowerRush</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="#bonus">Бонусы</a>
+      <a class="nav-link" href="#tactics">Тактика X10</a>
+      <a class="nav-link cta-small" href="https://lb333.me/5N9mCC" target="_blank">Играть</a>
+    </nav>
+  </header>
+
+  <div class="floating">💰</div>
+  <div class="floating">⚡</div>
+  <div class="floating">🎲</div>
+
+  <div class="container">
+    <img class="hero-logo" src="https://playtowerrush.ru/images/logo.png" alt="TowerRush">
+    <h1 class="logo">LUCKYBEAR CASINO × TOWER RUSH</h1>
+    <p class="subtitle">Играй в Tower Rush на Лаки Бир Казино. Лови множители и забирай выигрыш.</p>
+
+    <a href="https://lb333.me/5N9mCC" class="cta-button" target="_blank">🚀 Играть на сайте</a>
+    <a href="https://t.me/Lucky_Bear_SpinPro_Bot/app?startapp=bXN0PTB4MTUzOTJmZWI1Jm09TklLSVRPUyZjPVNlb0JvdA_SeoTower" class="cta-button tg-btn" target="_blank">📱 Играть в Telegram</a>
+
+    <div class="promo-section" id="bonus">
+      <div class="bonus-card">
+        <h2>Бонус 360% + 250 фриспинов на первые 4 депозита</h2>
+        <p>Пополняй баланс и получай огромные бонусы!</p>
+        <div class="chest-list">
+          <div class="chest">
+            <span class="chest-label">1 деп</span>
+            <img class="chest-img" src="https://luckybeargames.ru/icons/box1.png" alt="Открытая коробка" loading="lazy">
+            <div class="bonus-line"><span class="bonus-dot"></span></div>
+            <div class="bonus-text">До 360%</div>
+          </div>
+          <div class="chest">
+            <span class="chest-label">2 деп</span>
+            <img class="chest-img" src="https://luckybeargames.ru/icons/box2.png" alt="Закрытая коробка" loading="lazy">
+            <div class="bonus-line"></div>
+            <div class="bonus-text">До 360%</div>
+          </div>
+          <div class="chest">
+            <span class="chest-label">3 деп</span>
+            <img class="chest-img" src="https://luckybeargames.ru/icons/box2.png" alt="Закрытая коробка" loading="lazy">
+            <div class="bonus-line"></div>
+            <div class="bonus-text">До 360% +50FS</div>
+          </div>
+          <div class="chest">
+            <span class="chest-label">4 деп</span>
+            <img class="chest-img" src="https://luckybeargames.ru/icons/box2.png" alt="Закрытая коробка" loading="lazy">
+            <div class="bonus-line"></div>
+            <div class="bonus-text">До 360% +200FS</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a class="cta-button btn-primary" href="#seo">Подробнее</a>
+          <a class="cta-button btn-secondary" href="https://lb333.me/5N9mCC" target="_blank">Пополнить</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-section">
+      <div class="phone-wrapper">
+        <div class="phone-glow"></div>
+        <img class="phone-img" src="phone.png" alt="Tower Rush телефон" loading="lazy">
+      </div>
+      <div class="phone-cta">
+        <a class="cta-button jackpot-btn" href="https://lb333.me/5N9mCC" target="_blank">👉  ЗАБРАТЬ СВОЙ КУШ  👈</a>
+      </div>
+    </div>
+
+    <section id="seo" style="text-align:left;max-width:900px;margin:40px auto 0;color:#ddd">
+      <h2 style="font-size:1.8rem;margin-bottom:1rem;color:#fff">Tower Rush в LuckyBear Casino</h2>
+      <p>LuckyBear Casino предлагает игру Tower Rush с премиальной поддержкой и бонусами на первые депозиты. Tower Rush — динамичная игра с уровнями башни и мультипликаторами, где игроки стремятся к максимальным множителям и безопасному кэшауту.</p>
+      <h3 style="margin-top:1.5rem;color:#fff">Почему выбирают Лаки Бир Казино</h3>
+      <p>Лаки Бир Казино сочетает быстрые выплаты, честный геймплей и регулярные акции. Tower Rush доступен 24/7, а бонусная программа включает до 360% и до 250 фриспинов на четыре первых депозита.</p>
+      <h3 style="margin-top:1.5rem;color:#fff">Как начать играть в Tower Rush</h3>
+      <p>Нажмите «Играть сейчас», пополните баланс и выбирайте уровень риска. Tower Rush в LuckyBear Casino даёт возможность уверенно подниматься по уровням башни и фиксировать выигрыш на удобном этапе.</p>
+      <p>Ключевые запросы: tower rush, лаки бир казино, LuckyBear Casino, игра башня, бонус 360%, фриспины.</p>
+    </section>
+    <div class="accordion" id="texts">
+      <details><summary>Обзор Tower Rush в лаки бир казино</summary><div class="content">Tower rush в лаки бир казино — прогрессия уровней с растущими множителями и быстрым кэшаутом. В лаки бир казино tower rush запускается мгновенно, интерфейс понятен, акценты помогают принимать решения быстрее и точнее.</div></details>
+      <details><summary>Банкролл для tower rush в лаки бир казино</summary><div class="content">Для tower rush в лаки бир казино делите бюджет на сессии, держите ставку 1–2% от банкролла и фиксируйте прибыль чаще при нестабильной серии. Такой подход делает tower rush устойчивее к дисперсии и понятнее статистически.</div></details>
+      <details><summary>Риск‑профили tower rush</summary><div class="content">В лаки бир казино tower rush удобно играть по трём профилям: консервативный — ранний выход; сбалансированный — гибкая длина прохода; агрессивный — ставка на высокие множители при строгих лимитах. Выбирайте профиль под цели сессии tower rush.</div></details>
+      <details><summary>Темп игры tower rush</summary><div class="content">Tower rush в лаки бир казино комфортен в коротких сессиях по 20–30 минут. Перерывы помогают сохранять концентрацию, а быстрый вход в tower rush позволяет не терять ритм и качество решений.</div></details>
+      <details><summary>Плюсы лаки бир казино для tower rush</summary><div class="content">Лаки бир казино даёт быстрые депозиты, честные условия и стабильную работу на мобильных устройствах. Для tower rush это меньше задержек и понятная логика управления, что повышает общий результат.</div></details>
+      <details><summary>Бонусы лаки бир казино для tower rush</summary><div class="content">В лаки бир казино бонус до 360% и фриспины поддерживают стартовые сессии tower rush: первый депозит усиливает множитель, второй и третий добавляют фриспины, четвёртый закрепляет высокий процент.</div></details>
+      <details><summary>Частые ошибки в tower rush</summary><div class="content">Для лаки бир казино tower rush типичны ошибки: пересиживание уровней, отсутствие плана выхода и хаотичное повышение ставок. Решение — фиксировать цели заранее и соблюдать лимиты tower rush независимо от эмоций.</div></details>
+      <details><summary>Мобильный tower rush</summary><div class="content">В лаки бир казино tower rush адаптирован под вертикальные экраны, крупные контролы и экономию трафика. Это облегчает игру на ходу и делает tower rush удобным при слабом соединении.</div></details>
+      <details><summary>Продвинутые стратегии tower rush</summary><div class="content">В лаки бир казино для tower rush используйте гибридный подход: короткие выходы при отрицательной динамике и более длинные проходы при устойчивой позитивной серии. Ключ — фиксированные правила смены режима tower rush и никакой импровизации без данных.</div></details>
+      <details><summary>Волатильность tower rush</summary><div class="content">В лаки бир казино tower rush чувствителен к волатильности: чем выше риск, тем больше разброс. Снизить дисперсию помогает ранний кэшаут и меньшая ставка относительно банкролла, так tower rush становится стабильнее.</div></details>
+      <details><summary>Лимиты в лаки бир казино</summary><div class="content">Лимиты прибыли и убытка задаются до начала сессии tower rush. Достигли цели — завершите раунд и сделайте паузу. В лаки бир казино дисциплина повышает среднюю эффективность tower rush и предотвращает пересидку уровней.</div></details>
+      <details><summary>Аналитика tower rush</summary><div class="content">В лаки бир казино фиксируйте дату, ставку, уровни и кэшаут для tower rush. По данным видно, где вы чаще фиксируете прибыль и где теряете преимущество. Это помогает настроить длину проходов tower rush и частоту выхода.</div></details>
+      <details><summary>Ставка для tower rush</summary><div class="content">В лаки бир казино ставка должна соответствовать профилю риска и целям tower rush. Для стабильности — минимальные ставки и ранний выход; для агрессивного профиля — постепенное увеличение ставки строго в рамках лимитов.</div></details>
+      <details><summary>Подготовка к длинной сессии tower rush</summary><div class="content">В лаки бир казино для tower rush подготовьте uninterrupted режим, воду, удобную позу и отключите уведомления. Tower rush требует концентрации, комфортные условия повышают точность решений.</div></details>
+      <details><summary>FAQ: множители в tower rush</summary><div class="content">В лаки бир казино tower rush множитель растёт с уровнем башни. Игрок сам выбирает момент фиксации выигрыша, универсальной стратегии нет — всё зависит от профиля риска.</div></details>
+      <details><summary>FAQ: бонусы лаки бир казино</summary><div class="content">На один депозит активируется один пакет бонусов. Комбинации регулируются правилами акции. Для tower rush проверяйте условия лаки бир казино на странице пополнения перед началом сессии.</div></details>
+      <details><summary>Глоссарий tower rush</summary><div class="content">Башня — уровни прогрессии tower rush; множитель — коэффициент выигрыша; кэшаут — фиксация; волатильность — разброс исходов; банкролл — бюджет. В лаки бир казино эти термины помогают выстраивать стратегию.</div></details>
+      <details><summary>Кейсы игроков лаки бир казино</summary><div class="content">Игроки лаки бир казино отмечают, что tower rush устойчиво даёт X5–X10 при дисциплине: строгие лимиты, постепенное увеличение длины прохода и спокойная фиксация выигрышей без попытки дожать максимум.</div></details>
+      <details><summary>Интерфейс лаки бир казино для tower rush</summary><div class="content">Лаки бир казино использует визуальные акценты, крупные кнопки и понятную иерархию. Для tower rush это снижает время навигации, повышает точность и сокращает неверные клики.</div></details>
+      <details><summary>Безопасность аккаунта в лаки бир казино</summary><div class="content">В лаки бир казино используйте уникальные пароли и двухфакторную аутентификацию. Для tower rush важно защищать доступ к аккаунту и не входить из публичных сетей.</div></details>
+      <details><summary>Поддержка и выплаты лаки бир казино</summary><div class="content">Служба поддержки лаки бир казино оперативна, выплаты проходят по правилам и зависят от метода. Для tower rush это комфортный цикл: депозит, сессия, вывод.</div></details>
+      <details><summary>Итоги: лаки бир казино и tower rush</summary><div class="content">Лаки бир казино и tower rush — сочетание динамики, бонусов и удобства. Соблюдайте банкролл‑менеджмент, анализируйте результаты и используйте акции, чтобы играть осознанно и эффективно.</div></details>
+    </div>
+    <div class="footer">© LuckyBear Casino · TowerRush</div>
+  </div>
+
+  <div class="popup" id="popup">
+    <p>✅ Промокод скопирован! Используй его при регистрации в LuckyBear Casino.</p>
+    <a href="https://lb333.me/5N9mCC" target="_blank">Перейти к игре</a>
+  </div>
+
+  <script>
+    // Фон с мерцающими точками
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let stars = [];
+    for(let i=0;i<120;i++){
+      stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle="white";
+      stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+        s.x+=s.dx;s.y+=s.dy;
+        if(s.x<0||s.x>canvas.width) s.dx*=-1;
+        if(s.y<0||s.y>canvas.height) s.dy*=-1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+    window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+    
+  </script>
+</body>
+</html>
